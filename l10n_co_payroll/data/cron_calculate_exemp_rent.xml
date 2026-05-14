@@ -1,0 +1,19 @@
+<odoo>
+    <data noupdate="0">
+        <record model="ir.cron" id="l10n_co_payroll.calculate_exempt_rent_cron">
+            <field name="name">Nómina - Calcular renta exenta</field>
+            <field name="model_id" eval="ref('model_hr_payslip')"/>
+            <field  name="active" eval="False"/>
+            <field name="state">code</field>
+            <field name="code"># Asigna el valor de porcentaje exento para la retención en la fuente de las nóminas indicadas.
+# Agregue los IDS de la(s) nómina(s) entre [] separados por una coma.
+# Ejemplo: para una sola nómina slip_ids = [2] o slip_ids = [5, 7, 8] para varias.
+
+slip_ids = []
+for slip in env['hr.payslip'].search([('id', 'in', slip_ids)], order='date_to'):
+  slip.calculate_exempt_rent()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,5 @@
+validators>=0.14.0
+pyqrcode>=1.2.1
+pg-xmlsig>=0.0.2
+pg-xades>=0.0.6
+xmlsig>=0.1.3

@@ -1,0 +1,85 @@
+PROTOCOLO DE ACTUALIZACION DEL PROYECTO l10n_co_payroll
+=======================================================
+    Si la version anterior es menor a la 1.0
+1.  Exportar las fecha_cesantias del contrato con el External-id del contrato.
+
+2.  Actualizar la aplicacion l10n_co_payroll
+  
+    Si la version anterior es menor a la 1.0
+3.  Importar las fecha_corte del archivo exportado en el paso 1.
+
+4.  Aplicar plantilla.
+
+5.  Al actualizar de una versión 2.x a una 3.x archivar las reglas: RET_FTE
+
+6. Correr el siguiente query para que tome la regla de RET_FTE como RET_FUE:
+
+    update hr_salary_rule set code='RET_FUE_MAN_OLD' where code='RET_FUE'and active=False;
+    update hr_salary_rule set code='RET_FUE_MAN_OLD' where code='RET_FUE_OLD' and active=False;
+    update hr_salary_rule set code='RET_FUE_OLD' where code='RET_FTE' and active=False;
+    update hr_salary_rule set code='RET_FUE_OLD' where code='RET_FTE_OLD' and active=False;
+    
+7.  Correr el siguiente sql para que las lineas de las nominas en espera cambien de reglas archivadas a su equivlente de reglas activas.
+
+	update hr_payslip_line set salary_rule_id=c.id_dejar,code=c.code_dejar from 
+	--select c.id_dejar,c.code_dejar,c.id_reemplazar,c.code_reemplazar from hr_payslip_line,
+	(
+	select a.id as id_dejar,a.code as code_dejar,b.id as id_reemplazar,b.code as code_reemplazar,b.id_line
+	from (
+	     
+	     select sr.id,case when sr.code='NET_VAC' then 'NET_OLD' when sr.code='SAL' then 'SUELDO_OLD' when sr.code='BAS_SEG_SOC' then 'BAS_SEG_SOC_AFP_EPS_OLD' else sr.code end as code,pl.id as id_line 
+	     from hr_payslip p inner join hr_payslip_line pl on(pl.slip_id=p.id) inner join hr_salary_rule sr on(sr.id=pl.salary_rule_id) 
+	     where p.state in('verify','draft') and not sr.active      
+	     ) b 
+	     left outer join 
+	     (select code,id from hr_salary_rule where active) a on(b.code ilike a.code||'_OLD') 
+	) c where id= c.id_line and c.code_reemplazar not like 'BASIC' and c.code_reemplazar not like 'GROSS' and c.code_reemplazar not like 'BAS_RET_FUE';
+	 
+
+    Si la version anterior es menor a la 1.0
+8.  Desenlazar las siguientes entradas de trabajo de las estructuras salariales con el siguiente script y despues revisar en la estructura salarial que no aparezcan en la pestaña de otras entradas.
+
+	delete from hr_payroll_structure_hr_payslip_input_type_rel where (hr_payslip_input_type_id,hr_payroll_structure_id) 
+	in(
+	select si.hr_payslip_input_type_id,si.hr_payroll_structure_id 
+	from hr_payroll_structure_hr_payslip_input_type_rel si
+	inner join hr_payslip_input_type i on(i.id=si.hr_payslip_input_type_id)
+	where i.code in('HED','HEN','HRN','HEDDF','HENDF','HRDDF','HRNDF','HOR_EXT','RECARGO')
+	);
+
+
+	update hr_payslip_input set input_type_id=a.id_dejar from 
+	--select * from hr_payslip_input,
+	(
+	select iti.id as id_reemplazar,ita.id as id_dejar,iti.code,ita.code
+	from hr_payslip_input_type iti
+	 inner join hr_payslip_input_type ita on(iti.code||'_MAN'=ita.code)
+	) a where input_type_id=a.id_reemplazar;
+
+	delete from hr_payslip_input_type 
+	--select * from hr_payslip_input_type 
+	where id in
+	(
+	select iti.id as id_reemplazar
+	from hr_payslip_input_type iti
+	 inner join hr_payslip_input_type ita on(iti.code||'_MAN'=ita.code)
+	);
+
+
+    Si la version es anterior a la 1.1
+9.  Crear la regla salarial para las nominas que no la tengan ING_SAL, y la regla SAL cambiarla por SUELDO con el siguiente sql:
+    alter table hr_payslip_line add modificada text;
+
+    	update hr_payslip_line set code = 'SUELDO', name = 'Sueldo', modificada='U' where code ='SAL';
+
+
+	    insert into hr_payslip_line(
+	    name, sequence, code, slip_id, salary_rule_id, contract_id, employee_id, rate, amount, quantity,   total, category_id, partner_id, date_from,  date_to, create_uid, create_date, write_uid,         write_date, origin_partner,modificada)
+	    select 'Ingreso salarial',  1, 'ING_SAL', pl1.slip_id, sr.id, pl1.contract_id, pl1.employee_id, pl1.rate, sum(pl2.amount), pl1.quantity, sum(pl2.amount), srcbs.id, pl1.partner_id, pl1.date_from,  pl1.date_to, 2, current_timestamp, 2, current_timestamp, pl1.origin_partner,'I' 
+	    from hr_payslip_line pl1 inner join hr_payslip p on(p.id=pl1.slip_id) inner join hr_salary_rule sr on(sr.struct_id=p.struct_id and sr.code='ING_SAL' and sr.active)
+		left join (select pl.* from hr_payslip_line pl inner join hr_salary_rule_category src on(src.id=pl.category_id and src.code='ING_SAL')) pl2 on pl1.slip_id = pl2.slip_id and pl2.code!='INCAPACIDAD_COMUN'
+		left join hr_payslip_line pl3 on pl1.slip_id = pl3.slip_id and pl3.code='ING_SAL',     
+		(select * from hr_salary_rule_category where code = 'BAS_CAL') srcbs
+	    where pl1.code in ('NET','NET_VAC')  and pl3.id is null
+	    group by pl1.sequence, pl1.slip_id, sr.id,pl1.contract_id, pl1.employee_id, pl1.rate, pl1.quantity, pl1.category_id, pl1.partner_id, pl1.date_from,  pl1.date_to, pl1.create_uid, pl1.create_date, pl1.write_uid, pl1.write_date, pl1.origin_partner,srcbs.id;
+

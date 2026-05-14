@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_payslip_run_form_view" model="ir.ui.view">
+        <field name="name">payslip.run.form.inherit.l10n.co</field>
+        <field name="model">hr.payslip.run</field>
+        <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='schedule_pay']" position="before">
+                <field name="liquidar_por"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_payslip_run_create_other_entries_from_contract" model="ir.actions.server">
+        <field name="name">Traer novedades del contrato</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records.create_other_entries_from_contract()
+        </field>
+    </record>
+</odoo>

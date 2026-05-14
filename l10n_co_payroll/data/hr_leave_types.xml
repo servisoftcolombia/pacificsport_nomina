@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="leave_type_vac" model="hr.leave.type">
+            <field name="name">Vacaciones</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_vac"/>
+            <field name="requires_allocation">True</field>
+            <field name="leave_validation_type">both</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_licencianr" model="hr.leave.type">
+            <field name="name">Licencia No Remunerada</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_licencianr"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">both</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">True</field>
+        </record>
+        <record id="leave_type_licenciar" model="hr.leave.type">
+            <field name="name">Licencia Remunerada</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_licenciar"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">both</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_inccomun" model="hr.leave.type">
+            <field name="name">Incapacidad Comun</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_inccomun"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_inccomun_sena" model="hr.leave.type">
+            <field name="name">Incapacidad Comun SENA</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_inccomun_sena"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_inclaboral" model="hr.leave.type">
+            <field name="name">Incapacidad Laboral</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_inclaboral"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_incprof" model="hr.leave.type">
+            <field name="name">Incapacidad Profesional</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_incprof"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_licmp" model="hr.leave.type">
+            <field name="name">Licencia Maternidad/Paternidad</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_licmp"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">no_validation</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">False</field>
+        </record>
+        <record id="leave_type_huelga_legal" model="hr.leave.type">
+            <field name="name">Huelga Legal</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_huelga_legal"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">True</field>
+        </record>
+        <record id="leave_type_suspension_contrato" model="hr.leave.type">
+            <field name="name">Suspension de Contrato</field>
+            <field name="work_entry_type_id" ref="l10n_co_payroll.work_entry_type_suspension_contrato"/>
+            <field name="requires_allocation">False</field>
+            <field name="leave_validation_type">hr</field>
+            <field name="allocation_validation_type">hr</field>
+            <field name="time_type">leave</field>
+            <field name="request_unit">day</field>
+            <field name="unpaid">True</field>
+        </record>
+    </data>
+</odoo>

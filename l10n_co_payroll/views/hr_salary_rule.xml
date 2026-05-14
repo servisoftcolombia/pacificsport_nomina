@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <!--  ocultando los campos cuenta deudora y cuenta acrededora -->
+    <!--  agregando campos del modelo salary.rule.account -->
+    <record model="ir.ui.view" id="hr_salary_rule_form_view_inherit">
+      <field name="name">Cuentas de Reglas Salariales</field>
+      <field name="model">hr.salary.rule</field>
+      <field name="inherit_id" ref="hr_payroll_account.hr_salary_rule_view_form"/>
+      <field name="arch" type="xml">
+          <xpath expr="//field[@name='not_computed_in_net']" position="before">
+              <field name="origin_partner" help="Permite definir de dónde será tomado el tercero para el registro contable"/>
+              <field name="partner_id" help="Tercero para el registro contable cuando se ha seleccionado Tipo de tercero: Regla salarial"/>
+          </xpath>
+          <xpath expr="//field[@name='account_debit']" position="attributes">
+              <attribute name='invisible'>1</attribute>
+          </xpath>
+          <xpath expr="//field[@name='account_credit']" position="attributes">
+              <attribute name='invisible'>1</attribute>
+          </xpath>
+           <xpath expr="//field[@name='not_computed_in_net']" position="after">
+               <field name="account_rule" nolabel="0" >
+                   <list string="regla de la cuenta" editable="bottom" >
+                       <field name="regla_salarial" />
+                       <field name="account_debit" />
+                       <field name="account_credit" />
+                       <field name="area_trabajo" />
+                   </list>
+               </field>
+           </xpath>
+          <xpath expr="//field[@name='note']" position="before">
+            <label for="regulation" string='Normatividad'/>
+            <field name="regulation" widget="html"/>
+            <br/>
+            <label for="functional_information" string='Información Funcional'/>
+            <field name="functional_information"/>
+            <br/>
+            <label for="note" string='Notas'/>
+          </xpath>
+      </field>
+    </record>
+
+    <record id="hr_salary_rule_co_view_form_inherit" model="ir.ui.view">
+        <field name="name">Reglas salariales - Colombia - Widget Python</field>
+        <field name="model">hr.salary.rule</field>
+        <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='condition_python']" position="replace">
+                <field name="condition_python" invisible="condition_select != 'python'" required="condition_select == 'python'" widget="code" options="{'mode': 'python'}" colspan="4"/>
+            </xpath>
+            <xpath expr="//field[@name='amount_python_compute']" position="replace">
+                <field colspan="4" name="amount_python_compute" invisible="amount_select != 'code'" required="amount_select == 'code'" widget="code" options="{'mode': 'python'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+  </data>
+</odoo>

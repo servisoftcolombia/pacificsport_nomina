@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_col_form__view_for" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n.co.payroll</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr_payroll.payroll_hr_employee_view_form"/>
+        <field name="priority">40</field>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='payroll_information']" position="inside">
+                <group string="Colombia">
+                    <group string="Contacto y afiliaciones">
+                        <field name="address_home_id"/>
+                        <field name="eps_id"/>
+                        <field name="fp_id"/>
+                        <field name="fc_id"/>
+                        <field name="ccf_id"/>
+                        <field name="nivel_arl"/>
+                    </group>
+                    <group string="Datos complementarios">
+                        <field name="afc"/>
+                        <field name="type_payment_afc" invisible="afc == 0"/>
+                        <field name="avc"/>
+                        <field name="type_payment_avc" invisible="avc == 0"/>
+                        <field name="fpv"/>
+                        <field name="type_payment_fpv" invisible="fpv == 0"/>
+                        <field name="int_vivienda"/>
+                        <field name="med_prep"/>
+                        <field name="dependientes"/>
+                        <field name="pensionado"/>
+                        <field name="analytic_account"/>
+                    </group>
+                    <group string="Auxilio de transporte">
+                        <field name="exento_transporte"/>
+                        <field name="transportation_payment"/>
+                        <field name="vacations_payment"/>
+                        <field name="send_previous_provisions"/>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

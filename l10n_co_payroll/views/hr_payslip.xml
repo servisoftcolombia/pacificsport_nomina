@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="inherit_payslip_form_view" model="ir.ui.view">
+        <field name="name">payslip.form.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='struct_id']" position="after">
+                <field name="contract_struct_id" invisible="1"/>
+                <field name="liquidar_por"/>
+                <field name="payment_mean_id"/>
+                <field name="template_id"/>
+                <field name="correo_enviado" readonly="1"/>
+                <field name="warning_message" readonly="1" invisible="warning_message == False"/>
+            </xpath>
+            <xpath expr="//field[@name='move_id']" position="after">
+                <field name="move_id_pago"/>
+                <field name="third_move_id"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Base calculos" name="calculation_base">
+                    <group col="4">
+                        <field name="nod_paid_leaves"/>
+                        <field name="nod_unpaid_leaves"/>
+                        <field name="nod_unpaid_leaves_hecho"/>
+                        <field name="dias_a_pagar"/>
+                        <field name="dias"/>
+                        <field name="dias_hecho"/>
+                        <field name="days_paid"/>
+                        <field name="dias_trabajados_mes_hecho"/>
+                        <field name="dias_a_pagar_hecho"/>
+                        <field name="sueldo_proyectado_pendiente_hasta"/>
+                        <field name="promedio_variable_sin_extras_ni_rdominicalf_360"/>
+                        <field name="promedio_sal_aux_tras_90"/>
+                        <field name="dias_trabajados"/>
+                        <field name="dias_incapacidad_comun"/>
+                        <field name="dias_licencia_mat_pat"/>
+                        <field name="dias_licencia_mat_pat_hecho"/>
+                        <field name="dias_vacaciones"/>
+                        <field name="dias_vacaciones_compensadas"/>
+                        <field name="dias_vacaciones_hecho"/>
+                        <field name="dias_cesantias"/>
+                        <field name="dias_intereses_cesantias"/>
+                        <field name="dias_prima"/>
+                        <field name="smlv"/>
+                        <field name="aux_trans"/>
+                        <field name="valor_uvt"/>
+                        <field name="tipo_variacion_salario"/>
+                        <field name="ibc_seguridad_social_mes_anterior"/>
+                        <field name="promedio_sal_aux_tras_180"/>
+                        <field name="promedio_sal_aux_tras_360"/>
+                        <field name="promedio_wage_360"/>
+                        <field name="valor_dia_reemplazo_hecho"/>
+                        <field name="wage"/>
+                        <field name="date_from_cesantias"/>
+                        <field name="date_from_prima"/>
+                        <field name="base_fondo_solidaridad_hecho"/>
+                        <field name="subsistence_fund_paid"/>
+                        <field name="solidarity_fund_paid"/>
+                        <field name="last_payslip"/>
+                    </group>
+                    <group string="Retencion">
+                        <group>
+                            <field name="exempt_rent"/>
+                        </group>
+                        <group>
+                            <field name="exempt_rent_accumulated"/>
+                        </group>
+                    </group>
+                    <field name="previous_payslips_done" invisible="1"/>
+                </page>
+            </xpath>
+            <xpath expr="//field[@name='input_line_ids']/list/field[@name='input_type_id']" position="after">
+                <field name="descripcion"/>
+                <field name="totaliza" column_invisible="True"/>
+            </xpath>
+            <xpath expr="//field[@name='input_line_ids']/list/field[@name='name']" position="attributes">
+                <attribute name="column_invisible">True</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="inherit_payslip_filter_view" model="ir.ui.view">
+        <field name="name">payslip.filter.inherit</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Tipo Liquidacion" name="groupby_liquidar_por" context="{'group_by': 'liquidar_por'}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_l10n_co_cep_hr_payslip_electronic,l10n_co_cep.hr_payslip_electronic,model_hr_payslip_electronic,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_l10n_co_payroll_payment_mean_manager,l10n_co_payroll.payment_mean,model_l10n_co_payroll_payment_mean,hr_payroll.group_hr_payroll_manager,1,1,1,0

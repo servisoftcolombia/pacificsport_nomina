@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Acciones -->
+        <record id="action_tipo_hora_extra" model="ir.actions.act_window">
+            <field name="name">Tipos de Hora Extra</field>
+            <field name="res_model">tipo.hora.extra</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea y gestiona los tipos de hora extra disponibles.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_hora_extra" model="ir.actions.act_window">
+            <field name="name">Horas Extra</field>
+            <field name="res_model">hora.extra</field>
+            <field name="view_mode">list,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Registra y gestiona las horas extra de los empleados.
+                </p>
+            </field>
+        </record>
+
+        <!-- Menús -->
+        <menuitem id="menu_hora_extra_root"
+                  parent="hr_payroll.menu_hr_salary_configuration"
+                  name="Horas Extra"
+                  sequence="10"/>
+
+        <menuitem id="menu_tipo_hora_extra"
+                  name="Tipos de Hora Extra"
+                  parent="menu_hora_extra_root"
+                  sequence="10"
+                  action="l10n_co_payroll.action_tipo_hora_extra"/>
+
+        <menuitem id="menu_hora_extra"
+                  name="Horas Extra"
+                  parent="menu_hora_extra_root"
+                  sequence="20"
+                  action="l10n_co_payroll.action_hora_extra"/>
+
+        <!-- Vistas para tipo.hora.extra -->
+        <record id="view_tipo_hora_extra_tree" model="ir.ui.view">
+            <field name="name">tipo.hora.extra.tree</field>
+            <field name="model">tipo.hora.extra</field>
+            <field name="arch" type="xml">
+                <list string="Tipos de Hora Extra">
+                    <field name="descripcion_he"/>
+                    <field name="sigla"/>
+                    <field name="hora_inicio_he"/>
+                    <field name="hora_fin_he"/>
+                    <field name="dominical_festivo"/>
+                    <field name="nocturno"/>
+                    <field name="recargo"/>
+                    <field name="tasa"/>
+                    <field name="multiplo"/>
+                </list>
+            </field>
+        </record>
+
+        <record id="view_tipo_hora_extra_form" model="ir.ui.view">
+            <field name="name">tipo.hora.extra.form</field>
+            <field name="model">tipo.hora.extra</field>
+            <field name="arch" type="xml">
+                <form string="Tipo de Hora Extra">
+                    <sheet>
+                        <group>
+                            <field name="descripcion_he"/>
+                            <field name="sigla"/>
+                            <field name="hora_inicio_he"/>
+                            <field name="hora_fin_he"/>
+                        </group>
+                        <group>
+                            <field name="dominical_festivo"/>
+                            <field name="nocturno"/>
+                            <field name="recargo"/>
+                            <field name="tasa"/>
+                            <field name="multiplo"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Vistas para hora.extra -->
+        <record id="view_hora_extra_tree" model="ir.ui.view">
+            <field name="name">hora.extra.tree</field>
+            <field name="model">hora.extra</field>
+            <field name="arch" type="xml">
+                <list string="Horas Extra">
+                    <field name="company_id"/>
+                    <field name="id_empleado"/>
+                    <!-- Add more fields as necessary -->
+                </list>
+            </field>
+        </record>
+
+        <record id="view_hora_extra_form" model="ir.ui.view">
+            <field name="name">hora.extra.form</field>
+            <field name="model">hora.extra</field>
+            <field name="arch" type="xml">
+                <form string="Hora Extra">
+                    <sheet>
+                        <group>
+                            <field name="company_id"/>
+                            <field name="id_empleado"/>
+                            <!-- Add more fields as necessary -->
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

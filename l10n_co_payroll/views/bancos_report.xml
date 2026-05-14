@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Acción para el informe de bancos -->
+        <record model="ir.actions.act_window" id="action_bancos_report">
+            <field name="name">Informe de bancos</field>
+            <field name="res_model">bancos.report</field>
+            <field name="view_mode">list,form</field> <!-- Agregado 'form' al view_mode -->
+        </record>
+
+        <!-- Menú del informe de bancos -->
+        <menuitem name="Informe de bancos"
+                  parent="hr_payroll.menu_hr_payroll_report"
+                  id="menu_informe_bancos"
+                  action="action_bancos_report"
+        />
+
+        <!-- Vista tipo árbol (tree) -->
+        <record id="bancos_report_tree_view" model="ir.ui.view">
+            <field name="name">bancos.report.tree</field>
+            <field name="model">bancos.report</field>
+            <field name="arch" type="xml">
+                <list create="0">
+                    <field name="nombre_beneficiario"  />
+                    <field name="tipo_documento_beneficiario" optional="hide"/>
+                    <field name="tipo_doc"/>
+                    <field name="nit_beneficiario" optional="hide"/>
+                    <field name="tipo_transaccion" />
+                    <field name="banco"  />
+                    <field name="codigo_banco"  />
+                    <field name="tipo_de_cuenta"  />
+                    <field name="no_cuenta_beneficiario"  />
+                    <field name="email"  optional="hide"/>
+                    <field name="documento_autorizado"  optional="hide" />
+                    <field name="referencia"  optional="hide"/>
+                    <field name="nombre_lote"/>
+                    <field name="periodo_de_pago"/>
+                    <field name="fecha_de_envio" />
+                    <field name="oficina_entrega"  optional="hide"/>
+                    <field name="valor_transaccion"  optional="hide"/>
+                    <field name="fecha_de_aplicacion"  optional="hide"/>
+                </list>
+            </field>
+        </record>
+
+        <!-- Vista tipo formulario (form) -->
+        <record id="bancos_report_form_view" model="ir.ui.view">
+            <field name="name">bancos.report.form</field>
+            <field name="model">bancos.report</field>
+            <field name="arch" type="xml">
+                <form string="Informe de Banco">
+                    <sheet>
+                        <group>
+                            <field name="nombre_beneficiario"/>
+                            <field name="tipo_documento_beneficiario"/>
+                            <field name="tipo_doc"/>
+                            <field name="nit_beneficiario"/>
+                            <field name="tipo_transaccion"/>
+                            <field name="banco"/>
+                            <field name="codigo_banco"/>
+                            <field name="tipo_de_cuenta"/>
+                            <field name="no_cuenta_beneficiario"/>
+                            <field name="email"/>
+                            <field name="documento_autorizado"/>
+                            <field name="referencia"/>
+                            <field name="nombre_lote"/>
+                            <field name="periodo_de_pago"/>
+                            <field name="fecha_de_envio"/>
+                            <field name="oficina_entrega"/>
+                            <field name="valor_transaccion"/>
+                            <field name="fecha_de_aplicacion"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

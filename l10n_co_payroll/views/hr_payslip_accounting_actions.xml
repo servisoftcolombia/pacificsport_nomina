@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_hr_payslip_regenerar_asiento" model="ir.actions.server">
+        <field name="name">Regenerar asiento contable</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.regenerate_move_selection()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_run_regenerate_move_selection" model="ir.actions.server">
+        <field name="name">Regenerar asiento contable</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.regenerate_move_selection()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_calculate_exempt_rent" model="ir.actions.server">
+        <field name="name">Calcular renta exenta</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_calculate_exempt_rent()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_refresh_colombian_data" model="ir.actions.server">
+        <field name="name">Actualizar datos colombianos</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_refresh_colombian_data()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_send_mail" model="ir.actions.server">
+        <field name="name">Enviar desprendible</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_send_mail_payslip()
+        </field>
+    </record>
+
+    <record id="action_send_mail_payslips_massive" model="ir.actions.server">
+        <field name="name">Enviar recibos de nómina</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_send_mail_payslip()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_register_payment" model="ir.actions.server">
+        <field name="name">Registrar pago</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.action_register_payment()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_validate_fiscal_data" model="ir.actions.server">
+        <field name="name">Validar datos fiscales</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records.validate_info_electronic_payslip()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_run_compute_sheet" model="ir.actions.server">
+        <field name="name">Recalcular hojas</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records.compute_sheet()
+        </field>
+    </record>
+
+    <record id="action_hr_payslip_run_cancel" model="ir.actions.server">
+        <field name="name">Cancelar lote</field>
+        <field name="model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_model_id" ref="hr_payroll.model_hr_payslip_run"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    records.action_payslip_cancel()
+        </field>
+    </record>
+</odoo>

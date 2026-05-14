@@ -1,0 +1,24 @@
+<odoo>
+
+    <record id="select_regenerate_move_wizard_view_form" model="ir.ui.view">
+        <field name="name">select.regenerate.move.form</field>
+        <field name="model">select.regenerate.move.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select Move">
+                <group>
+                    <field name="regenerate_move"/>
+                    <field name="regenerate_move_pago"/>
+                    <field name="regenerate_third_move"/>
+                </group>
+                <group>
+                    <span colspan="4" nolabel="1" class="text-muted">En esta fase de Odoo 19 se regenera el asiento contable base, un asiento de pago simplificado soportado por la linea NET y un asiento de terceros basado en las reglas con origin_partner. La lógica avanzada legacy sigue pendiente de port completo.</span>
+                </group>
+                <footer>
+                    <button name="regenerate_move_selection" string='Aceptar' type='object' class='btn btn-primary'/>
+                    <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

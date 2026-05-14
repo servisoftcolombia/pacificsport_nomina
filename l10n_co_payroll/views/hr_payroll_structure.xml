@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payroll_structure_company_id" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.list.inherit.company.l10n.co</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payroll_structure_list_view"/>
+        <field name="arch" type="xml">
+            <field name="country_id" position="after">
+                <field name="company_id" options="{'no_create': True}"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_form_extra" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form.inherit.type.l10n.co</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll_account.hr_payroll_structure_view_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="before">
+                <field name="type"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_payroll_structure_co_form_inherit" model="ir.ui.view">
+        <field name="name">hr.payroll.structure.form.inherit.l10n.co</field>
+        <field name="model">hr.payroll.structure</field>
+        <field name="inherit_id" ref="hr_payroll_account.hr_payroll_structure_view_form"/>
+        <field name="arch" type="xml">
+            <field name="journal_id" position="after">
+                <field name="journal_payment_id"/>
+                <field name="journal_third_payment_id"/>
+                <field name="account_receivable_employee_id"/>
+            </field>
+        </field>
+    </record>
+</odoo>

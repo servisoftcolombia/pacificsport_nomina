@@ -1,0 +1,37 @@
+<odoo>
+    <data noupdate="0">
+        <record id="hr_payroll_template" model="mail.template">
+            <field name="name">Desprendible de nómina </field>
+            <field name="use_default_to" eval="False"/>
+            <field name="email_from">{{ object.company_id.email }}</field>
+            <field name="email_to">{{ object.employee_id.private_email or object.employee_id.work_email or safe }}</field>
+            <field name="subject">Desprendible de Nómina {{ object.name or object.employee_id.name }}</field>
+            <field name="lang">es_CO</field>
+            <field name="model_id" ref="l10n_co_payroll.model_hr_payslip"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <h4>  Buen día, adjunto desprendible de Nómina del periodo en asunto, </h4>
+                <h4>  Agradezco la atención y estaremos atentos a cualquier inquietud de su parte.   </h4>
+                <div style="background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;">
+                    <table style="width:600px;margin:auto;background:#003366;color:#ffffff;text-align:center;font-size:14px;padding:20px;border-radius:8px;">
+                        <tbody>
+                            <tr>
+                                <td style="padding:10px;">
+                                    <p style="font-weight:bold;">Administra tu empresa desde cualquier lugar y mantén la contabilidad al día.</p>
+                                    <p>Esta Nómina ha sido generada utilizando el sistema Odoo ERP, que permite a las empresas automatizar y optimizar sus procesos. Si está interesado en implementar una solución similar para su negocio, no dude en contactar a EFixPro.</p>
+                                    <p>
+                                        <img src="https://efixpro.co/logo.png" alt="EFixPro" style="max-width:100px;vertical-align:middle;background:#ffffff;padding:10px;border-radius:5px;"/>
+                                    </p>
+                                    <p style="font-weight:bold;">
+                                        Teléfono: 3023588490 <br/>
+                                        <a href="https://efixpro.co/" style="color:#ffffff;text-decoration:underline;">efixpro.co</a>
+                                    </p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </div>
+            </field>
+        </record>
+    </data>
+</odoo>

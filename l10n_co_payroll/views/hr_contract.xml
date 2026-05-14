@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_version_form_view_l10n_co_payroll" model="ir.ui.view">
+        <field name="name">hr.version.form.l10n.co.payroll</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr_payroll.hr_contract_template_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='salary_info']" position="inside">
+                <field name="tipo_salario"/>
+                <field name="periodo_de_nomina"/>
+                <field name="salario_variable"/>
+                <field name="retencion_fuente"/>
+                <field name="retefuente_table_value_ids" invisible="1"/>
+                <field name="area_trabajo"/>
+                <field name="withholding_percentage_id" invisible="retencion_fuente == 'procedimiento1'" options="{'no_quick_create': True}"/>
+            </xpath>
+            <xpath expr="//page[@name='information']" position="after">
+                <page string="Informacion Saldos">
+                    <group>
+                        <group string="Saldos de provisiones">
+                            <field name="fecha_corte" required="fecha_corte_required == True"/>
+                            <field name="fecha_corte_required" invisible="1"/>
+                            <field name="saldo_prima"/>
+                            <field name="saldo_cesantias"/>
+                            <field name="saldo_intereses_cesantias"/>
+                            <field name="saldo_vacaciones"/>
+                        </group>
+                        <group string="Salarios de 12 meses previos al corte">
+                            <field name="traza_atributo_salario_ids">
+                                <list editable="bottom">
+                                    <field name="fecha_actualizacion"/>
+                                    <field name="valor"/>
+                                    <field name="sueldo"/>
+                                    <field name="valor_horas_extras_recargos_dominicales"/>
+                                    <field name="valor_auxilio_transporte_conectividad"/>
+                                    <field name="dias_ausencias_pagas"/>
+                                    <field name="dias_suspensiones"/>
+                                </list>
+                            </field>
+                        </group>
+                    </group>
+                </page>
+                <page string="Calendarios">
+                    <field name="intervalo_calendario_ids">
+                        <list editable="bottom">
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="calendar_id"/>
+                        </list>
+                    </field>
+                </page>
+                <page string="Novedades">
+                    <div class="alert alert-info" role="alert" invisible="warning_message == False">
+                        <field name="warning_message"/>
+                    </div>
+                    <group string="Novedades en el contrato">
+                        <field name="new_entries_ids" nolabel="1">
+                            <list editable="bottom">
+                                <field name="type_id" string="Entrada" required="1"/>
+                                <field name="description" string="Descripcion" required="1"/>
+                                <field name="partner_id" string="Tercero"/>
+                                <field name="account_id" string="Cuenta"/>
+                                <field name="value" string="Monto Periodo" required="1"/>
+                                <field name="type_payment" required="1"/>
+                                <field name="period" string="N Periodos" required="1"/>
+                                <field name="liquidated_periods" string="Periodos Liq."/>
+                                <field name="absence_days" string="Pago Aus."/>
+                                <field name="liquidated" string="Liq. Total"/>
+                                <field name="category" string="Categoria"/>
+                            </list>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
