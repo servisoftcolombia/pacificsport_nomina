@@ -26,11 +26,23 @@
                        <div class="row mt16 o_settings_container" id="hr_payroll_work_entry_atomatic_payroll">
                            <div class="col-lg-6 col-12 o_setting_box">
                                 <div class="o_setting_left_pane">
-                                    <div>
-                                        <group>
-                                            <field name="not_work_entry_automatic"/>
-                                            <field name="not_work_entry_view_gantt"/>
-                                        </group>
+                                    <field name="not_work_entry_automatic"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="not_work_entry_automatic"/>
+                                    <div class="text-muted">
+                                        Deshabilitar la generación automática de entradas de trabajo.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-12 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="not_work_entry_view_gantt"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="not_work_entry_view_gantt"/>
+                                    <div class="text-muted">
+                                        Deshabilitar la vista Gantt para las entradas de trabajo.
                                     </div>
                                 </div>
                             </div>
