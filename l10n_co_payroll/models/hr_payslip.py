@@ -3893,7 +3893,8 @@ class HrPayslip(models.Model):
 
                 rec.company_id = employee.company_id
                 if not rec.contract_id or rec.employee_id != rec.contract_id.employee_id:  # Add a default contract if not already defined
-                    contracts = employee._get_contracts(date_from, date_to)
+                    contracts_dict = employee._get_contracts(fields.Date.to_date(date_from), fields.Date.to_date(date_to))
+                    contracts = contracts_dict.get(employee.id, self.env['hr.contract'])
 
                     if not contracts or not contracts[0].structure_type_id.default_struct_id:
                         rec.contract_id = False
